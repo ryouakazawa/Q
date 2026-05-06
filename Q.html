@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Queen</title>
+
+<style>
+    body {
+        margin: 0;
+        background: black;
+        overflow-x: hidden;
+        font-family: 'Courier New', monospace;
+        color: white;
+    }
+
+    /* 🔴 Sliding text */
+    .marquee {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        background: #0a0000;
+        border-bottom: 1px solid red;
+        z-index: 10;
+    }
+
+    .marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: scroll 15s linear infinite;
+        font-size: 20px;
+        letter-spacing: 3px;
+    }
+
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+    }
+
+    /* ❤️ Hearts rain */
+    .heart {
+        position: fixed;
+        top: -10px;
+        color: red;
+        font-size: 14px;
+        animation: fall linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+            opacity: 0;
+        }
+    }
+
+    /* 🎁 GIF */
+    .container {
+        margin-top: 120px;
+        text-align: center;
+    }
+
+    img {
+        width: 300px;
+        cursor: pointer;
+        border: 2px solid red;
+        box-shadow: 0 0 25px red;
+        transition: transform 0.3s;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    /* ✉️ Letter */
+    .letter {
+        margin: 30px auto;
+        width: 65%;
+        background: #f5e6cc;
+        color: black;
+        padding: 25px;
+        display: none;
+        text-align: left;
+        box-shadow: 0 0 25px red;
+        font-size: 18px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🔴 Sliding text -->
+<div class="marquee">
+    <span>❤️ Q is for QUEEN ❤️</span>
+</div>
+
+<div class="container">
+    <!-- 📁 SAME FOLDER -->
+    <img src="q.gif" id="gift">
+    <div class="letter" id="letter"></div>
+</div>
+
+<script>
+/* ❤️ Hearts rain */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 120);
+
+
+/* ✉️ Letter content */
+const text = `My baby,
+
+There’s something I don’t say enough, but I carry it with me every single day. The way I see you isn’t ordinary. You’re not just someone I love, you’re someone I hold above everything else. In my eyes, you are my queen.
+
+It’s not about putting you on a pedestal like you’re untouchable. It’s about how naturally you command my attention, and my care. The way you move, the way you think, the way you feel so deeply, it all makes me want to show up better for you. Not out of pressure, but because you make me want to be the kind of man who deserves someone like you.
+
+Being your man (sorry alam ko naman hindi pa pero it just felt appropriate here.) doesn’t feel like a role I was given. It feels like something I choose every day. I choose to listen to you, to understand you, to protect your peace (I know I'm still failing to do this perfectly sana dumating sa point na hindi na ako yung nagdidisturb ng peace mo.), and to stand beside you no matter what comes. Not because I have to, but because I want to.
+
+You deserve softness when the world is too harsh. You deserve patience when things get overwhelming. You deserve honesty, loyalty, and consistency without you having to question it. And I know I won’t always be perfect, but I will always try. I will always choose you.
+
+When I call you my queen, it’s not just words. It means I see your worth even in moments when you don’t. It means I’ll stand with you, not above you or behind you, but right beside you. It means your happiness matters to me just as much as my own.
+
+You’re not just someone I love. You’re someone I value. Someone I’m proud of. And someone I’ll keep choosing, again and again.
+
+Always yours,
+
+Mhack`;
+
+
+/* ✏️ Typewriter */
+let i = 0;
+let typingStarted = false;
+
+function typeWriter() {
+    const letter = document.getElementById("letter");
+
+    if (i < text.length) {
+        letter.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 25);
+    } else {
+        window.open("https://www.youtube.com/watch?v=waU75jdUnYw&list=RDwaU75jdUnYw&start_radio=1", "_blank");
+    }
+}
+
+
+/* 🎁 Click trigger */
+document.getElementById("gift").addEventListener("click", () => {
+    if (typingStarted) return; // prevent spam clicks
+
+    typingStarted = true;
+
+    const letter = document.getElementById("letter");
+    letter.style.display = "block";
+
+    typeWriter();
+});
+</script>
+
+</body>
+</html>
